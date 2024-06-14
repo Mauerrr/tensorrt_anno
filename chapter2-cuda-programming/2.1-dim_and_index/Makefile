@@ -1,4 +1,4 @@
-CONFIG        :=  ../../config/Makefile.config
+CONFIG        :=  ./config/Makefile.config
 CONFIG_LOCAL  :=  ./config/Makefile.config
 
 include $(CONFIG)
@@ -6,7 +6,7 @@ include $(CONFIG_LOCAL)
 
 BUILD_PATH    :=  build
 SRC_PATH      :=  src
-CUDA_DIR      :=  /usr/local/cuda-$(CUDA_VER)
+CUDA_DIR      :=  /usr/local/cuda
 
 KERNELS_SRC   :=  $(wildcard $(SRC_PATH)/*.cu)
 
