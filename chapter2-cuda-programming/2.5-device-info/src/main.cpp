@@ -7,11 +7,13 @@
 int main(){
     int count;
     int index = 0;
+    //主要用于查询系统中可用的CUDA-capable设备（通常是GPU）的数量。
     cudaGetDeviceCount(&count);
     while (index < count) {
         cudaSetDevice(index);
         cudaDeviceProp prop;
         cudaGetDeviceProperties(&prop, index);
+        //%-40s表示左对齐，占40个字符的宽度, %d表示整数, %s表示字符串, %.1f表示保留一位小数的浮点数，最后的s表示输出一个字符串
         LOG("%-40s",             "*********************Architecture related**********************");
         LOG("%-40s%d%s",         "Device id: ",                   index, "");
         LOG("%-40s%s%s",         "Device name: ",                 prop.name, "");

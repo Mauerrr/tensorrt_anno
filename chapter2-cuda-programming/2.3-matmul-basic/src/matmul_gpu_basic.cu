@@ -8,6 +8,7 @@ __global__ void MatmulKernel(float *M_device, float *N_device, float *P_device, 
         我们设定每一个thread负责P中的一个坐标的matmul
         所以一共有width * width个thread并行处理P的计算
     */
+    //计算当前线程负责的元素在矩阵中的位置
     int y = blockIdx.y * blockDim.y + threadIdx.y;
     int x = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -50,6 +51,7 @@ void MatmulOnDevice(float *M_host, float *N_host, float* P_host, int width, int 
     /* 调用kernel来进行matmul计算, 在这个例子中我们用的方案是：将一个矩阵切分成多个blockSize * blockSize的大小 */
     dim3 dimBlock(blockSize, blockSize);
     dim3 dimGrid(width / blockSize, width / blockSize);
+    //在 CUDA 编程中，<<<dimGrid, dimBlock>>> 是用来指定核函数（Kernel）调用的执行配置的。这种配置决定了核函数的并行度，即核函数将以怎样的网格（Grid）和块（Block）的结构在 GPU 上执行。每个核函数调用都需要明确这两个参数来有效地利用 GPU 的并行计算能力。
     MatmulKernel <<<dimGrid, dimBlock>>> (M_device, N_device, P_device, width);
 
     /* 将结果从device拷贝回host*/
