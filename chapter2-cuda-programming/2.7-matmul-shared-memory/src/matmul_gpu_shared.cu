@@ -57,7 +57,7 @@ __global__ void MatmulSharedDynamicKernel(float *M_device, float *N_device, floa
     */
 
     extern __shared__ float deviceShared[];
-    //stride相当于一个偏移
+    //stride相当于一个偏移，相当于一个block所有的大小
     int stride = blockSize * blockSize;
     /* 
         对于x和y, 根据blockID, tile大小和threadID进行索引
