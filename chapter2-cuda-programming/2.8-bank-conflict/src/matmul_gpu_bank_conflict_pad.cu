@@ -8,6 +8,7 @@
 */
 __global__ void MatmulSharedStaticConflictPadKernel(float *M_device, float *N_device, float *P_device, int width){
     /* 添加一个padding，可以防止bank conflict发生，结合图理解一下*/
+    //说实话，我的理解是通过在每行末尾增加一个空元素，但是存储的时候还是按照旧的方式存储，这样就可以避免bank conflict，这样每行的起始地址并不再对其到同一个bank上
     __shared__ float M_deviceShared[BLOCKSIZE][BLOCKSIZE + 1];
     __shared__ float N_deviceShared[BLOCKSIZE][BLOCKSIZE + 1];
     /* 

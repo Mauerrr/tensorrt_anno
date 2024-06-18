@@ -5,6 +5,7 @@
 
 /* 
     使用shared memory把计算一个tile所需要的数据分块存储到访问速度快的memory中
+    在 CUDA 中，共享内存被分成多个独立的存储单元，称为银行（banks）。这些银行允许并行访问，从而提高内存访问速度。每个银行可以同时服务一个请求，但如果多个线程同时访问同一个银行的不同地址，就会发生银行冲突，这会导致访问延迟。
 */
 __global__ void MatmulSharedStaticConflictKernel(float *M_device, float *N_device, float *P_device, int width){
     __shared__ float M_deviceShared[BLOCKSIZE][BLOCKSIZE];
